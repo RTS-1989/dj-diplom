@@ -3,56 +3,6 @@
 
 {% block content %}
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="./index.html">Просто магазин</a>
-  <img src="./static/logo.svg" alt="" width="42" height="42">
-  <button class="navbar-toggler" type="button" data-toggle="collapse"
-          data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
-          aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="./index.html">
-          Главная</a>
-      </li>
-
-
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown01"
-           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Гаджеты</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-
-          <a class="dropdown-item" href="./smartphones.html">
-            Сматрфоны</a>
-
-        </div>
-      </li>
-
-
-      <li class="nav-item">
-        <a class="nav-link" href="./empty_section.html">
-          Аксесcуары</a>
-      </li>
-
-
-    </ul>
-    <a class="btn btn-outline-success my-2 my-sm-0" role="button"
-       href="./cart.html">
-      Корзина</a>
-
-
-    <a class="btn btn-outline-success my-2 my-sm-0" role="button"
-       href="./login.html">
-      Войти</a>
-
-  </div>
-</nav>
-
-
 <main role="main">
 
   <div class="jumbotron">
@@ -66,51 +16,21 @@
   <div class="container mb-5">
     <!-- Example row of columns -->
     <div class="row">
-
+      {% for product in products %}
       <div class="col-md-4">
-        <h2>Nexus 5x</h2>
+        <a href="./phone.html"><h2>{{ product.name }}</h2></a>
 
-        <a href="./phone.html">
+          <img src="{% get_media_prefix %}{{ product.image }}" width="180">
 
-          <img src="./static/nexus5x.webp" width="180">
-
-        </a>
-
+        <div class="card-body">
+        </div>
+        {% endfor %}
         <form>
           <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
         </form>
       </div>
-
-      <div class="col-md-4">
-        <h2>iPhone 7</h2>
-
-        <a href="./phone.html">
-
-          <img src="./static/iphone7.webp" width="180">
-
-        </a>
-
-        <form>
-          <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
-        </form>
-      </div>
-
-      <div class="col-md-4">
-        <h2>Pixel 2</h2>
-
-        <a href="./phone.html">
-
-          <img src="./static/pixel2.webp" width="180">
-
-        </a>
-
-        <form>
-          <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
-        </form>
-      </div>
-
     </div>
-  </div> <!-- /container -->
+  </div>
 
   <div class="jumbotron">
     <div class="container">
@@ -140,11 +60,9 @@
 
     </div>
   </div> <!-- /container -->
-
 </main>
 
 <script src="./static/jquery-3.3.1.slim.min.js"></script>
 <script src="./static/popper.min.js"></script>
 <script src="./static/bootstrap.min.js"></script>
 {% endblock %}
-</html>
