@@ -10,11 +10,15 @@
     <!-- Example row of columns -->
     <div class="row">
       <div class="col-md-12">
-        <h2>Nexus 5x</h2>
+        <h2>{{ product.name }}</h2>
 
-        <img src="./static/nexus5x.webp" width="120">
-
-        <p>Неплохой телефон</p>
+        <img src="{% if product.image %}{{ product.image.url }}{% endif %}" width="120">
+        <br>
+        <br>
+        <div>
+          <p>Цена {{ product.price }}</p>
+        </div>
+        <p>{{ product.description }}</p>
         <form method="post" action="./cart/">
           <input type="hidden" name="csrfmiddlewaretoken"
                  value="N4vcBqzjoYkU7OTDuAT8hq8srpvYX44nJsswuP7e3EYg0Hq8DgxuR0eiXWbSr5RZ">
@@ -95,9 +99,5 @@
 
 
 </main>
-
-<script src="./static/jquery-3.3.1.slim.min.js"></script>
-<script src="./static/popper.min.js"></script>
-<script src="./static/bootstrap.min.js"></script>
 
 {% endblock %}
