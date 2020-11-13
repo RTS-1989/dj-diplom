@@ -16,9 +16,14 @@
         <br>
         <br>
         <div>
-          <p>Цена {{ product.price }}</p>
+          <p class="price">Цена {{ product.price }} р.</p>
+          <form action="{% url 'cart:cart_add' product.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Add to cart">
+          </form>
         </div>
-        <p>{{ product.description }}</p>
+        <p>{{ product.description|linebreaks }}</p>
         <form method="post" action="./cart/">
           <input type="hidden" name="csrfmiddlewaretoken"
                  value="N4vcBqzjoYkU7OTDuAT8hq8srpvYX44nJsswuP7e3EYg0Hq8DgxuR0eiXWbSr5RZ">

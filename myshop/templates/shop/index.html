@@ -20,7 +20,8 @@
       <div class="col-md-4">
 
        <a href="/catalog/{{ product.id }}/{{ product.slug }}">
-         <img src="{% if product.image %}{{ product.image.url }}{% endif %}" width="180">
+         <img src="{% if product.image %}{{ product.image.url }}
+         {% else %}{% static 'static/no_img.png' %}{% endif %}" width="180">
        </a>
         <p><a href="/catalog/{{ product.id }}/{{ product.slug }}">{{ product.name }}</a></p>
 
