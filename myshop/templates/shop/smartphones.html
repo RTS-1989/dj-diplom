@@ -10,81 +10,25 @@
 
     <h1>Смартфоны</h1>
 
+<div class="container mb-5">
+    <!-- Example row of columns -->
     <div class="row">
-
-
+      {% for product in products %}
       <div class="col-md-4">
-        <h2>Nexus 5x</h2>
 
-        <a href="./phone.html">
+       <a href="/catalog/{{ product.id }}/{{ product.slug }}">
+         <img src="{% if product.image %}{{ product.image.url }}
+         {% else %}{% static 'static/no_img.png' %}{% endif %}" width="180">
+       </a>
+        <p><a href="/catalog/{{ product.id }}/{{ product.slug }}">{{ product.name }}</a></p>
 
-          <img src="./static/nexus5x.webp" width="180">
-
-        </a>
-
-        <form>
-          <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
-        </form>
+        <div class="card-body">
+        </div>
+        {% endfor %}
       </div>
-
-
-      <div class="col-md-4">
-        <h2>iPhone 7</h2>
-
-        <a href="./phone.html">
-
-          <img src="./static/iphone7.webp" width="180">
-
-        </a>
-
-        <form>
-          <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
-        </form>
-      </div>
-
-
-      <div class="col-md-4">
-        <h2>Pixel 2</h2>
-
-        <a href="./phone.html">
-
-          <img src="./static/pixel2.webp" width="180">
-
-        </a>
-
-        <form>
-          <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
-        </form>
-      </div>
-
     </div>
-
-    <div class="row">
-
-
-      <div class="col-md-4">
-        <h2>Samsung S8</h2>
-
-        <a href="./phone.html">
-
-          <img src="./static/samsungs8.webp" width="180">
-
-        </a>
-
-        <form>
-          <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
-        </form>
-      </div>
-
-
-    </div> <!-- /container -->
-
   </div>
+  </div>
+
 </main>
-
-<hr>
-<footer class="container">
-  <p>© Просто магазин 2018</p>
-</footer>
-
 {% endblock %}
