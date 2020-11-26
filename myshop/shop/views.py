@@ -3,7 +3,6 @@ from shop.models import Category, Product
 from cart.forms import CartAddProductForm
 from django.core.paginator import Paginator
 from urllib.parse import urlencode
-from django.urls import reverse
 
 
 def product_list(request, category_slug=None):
