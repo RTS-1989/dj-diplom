@@ -39,6 +39,14 @@
       </li>
     </ul>
 
+    <a style="color:white; margin-right:1%; margin-left:1%">Добро пожаловать,
+        {% if request.user.is_authenticated %}
+        {{ request.user.username }}!
+        {% else %}
+        Гость!
+        {% endif %}
+    </a>
+
     <div class="cart">
       {% with total_items=cart|length %}
         {% if total_items > 0 %}

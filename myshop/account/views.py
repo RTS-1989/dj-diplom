@@ -27,7 +27,7 @@ def signup_view(request):
 
 
 def user_login(request):
-    template = 'account/login.html'
+    template = 'registration/login.html'
     message = ''
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -54,3 +54,8 @@ def user_login(request):
                'message': message
     }
     return render(request, template, context)
+
+
+# def user_logout(request):
+#     logout(request)
+#     return redirect('/logged_out.html')
