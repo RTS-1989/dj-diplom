@@ -41,9 +41,9 @@
 
     <a style="color:white; margin-right:1%; margin-left:1%">Добро пожаловать,
         {% if request.user.is_authenticated %}
-        {{ request.user.username }}!
+          {{ request.user.email }}!
         {% else %}
-        Гость!
+          Гость!
         {% endif %}
     </a>
 
