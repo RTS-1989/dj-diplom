@@ -7,7 +7,8 @@ class Category(models.Model):
 
     name = models.CharField(max_length=100, db_index=True,
                             verbose_name='наименование')
-    slug = models.SlugField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True,
+                            default=None)
 
     class Meta:
         ordering = ('name',)
@@ -21,14 +22,33 @@ class Category(models.Model):
         return reverse('shop:product_list_by_category', args=[self.slug])
 
 
+class Subcategory(models.Model):
+    category = models.ForeignKey('Category', related_name='subcategory',
+                                 on_delete=models.PROTECT, default=None)
+    name = models.CharField(max_length=100, db_index=True,
+                            verbose_name='наименование')
+    slug = models.SlugField(max_length=100, unique=True,
+                            default=None)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'Подкатегория'
+        verbose_name_plural = 'Подкатегории'
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
-    category = models.ForeignKey(
-        Category, related_name='products',
-        on_delete=models.CASCADE, verbose_name='категория'
+    subcategory = models.ForeignKey(
+        'Subcategory', related_name='products',
+        on_delete=models.CASCADE, verbose_name='подкатегория',
+        default=None
     )
     name = models.CharField(max_length=100, db_index=True,
                             verbose_name='наименование')
-    slug = models.SlugField(max_length=100, db_index=True)
+    slug = models.SlugField(max_length=100, db_index=True,
+                            default=None)
     image = models.ImageField(upload_to='products/%Y/%m/%d',
                               blank=True)
     description = models.TextField(blank=True, verbose_name='описание')
