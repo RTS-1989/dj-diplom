@@ -15,7 +15,7 @@
        <div class="col-md-4">
          <h2>{{ product.name }}</h2>
 
-         <a href="/product/{{ product.id }}">
+         <a href="/catalog/{{ product.id }}/{{ product.slug }}">
            <img src="{% if product.image %}{{ product.image.url }}
            {% else %}{% static 'static/no_img.png' %}{% endif %}" width="180">
          </a>
@@ -26,13 +26,12 @@
            <input type="submit" class="btn btn-secondary" value="Добавить в корзину »">
          </form>
        </div>
-        {% endfor %}
-      </div>
-       {% if prev_page_url %}<a class="button button-primary" href="{{ prev_page_url }}"><-</a>{% endif %}
-       <a class="button disabled" href="">Страница {{ current_page }}</a>
-       {% if next_page_url %}<a class="button button-primary" href="{{ next_page_url }}">-></a>{% endif %}
+      {% endfor %}
     </div>
   </div>
 
+{% if prev_page_url %}<a class="button button-primary" href="{{ prev_page_url }}">Предыдущая страница</a>{% endif %}
+  <a class="button disabled" href="">Страница {{ current_page }}</a>
+{% if next_page_url %}<a class="button button-primary" href="{{ next_page_url }}">Следующая страница</a>{% endif %}
 </main>
 {% endblock %}
