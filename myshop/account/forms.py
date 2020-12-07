@@ -3,9 +3,19 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-class SignupForm(UserCreationForm):
-    email = forms.EmailField(max_length=100)
+class SignupForm(forms.ModelForm):
+    email = forms.EmailField(label='Email', max_length=100)
+    password = forms.CharField(label='Пароль',
+                               widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Повторите пароль',
+                                widget=forms.PasswordInput)
 
     class Meta:
         model = User
         fields = ('email',)
+
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password2']:
+            raise forms.ValidationError('Пароли не совпадают')
+        return cd['password2']

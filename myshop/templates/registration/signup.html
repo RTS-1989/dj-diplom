@@ -5,21 +5,11 @@
 
 {% block content %}
 <h2>Регистрация</h2>
-<form method="post">
-{% csrf_token %}
-    {% for field in form %}
-<p>
-    {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-        <span>{{ field.help_text }}</span>
-      {% endif %}
-      {% for error in field.errors %}
-        <p>{{ error }}</p>
-      {% endfor %}
-</p>
-    {% endfor %}
-  <button type="submit">Отправить</button>
-      <a>{{ message }}</a>
-</form>
+<p>Пожалуйста, зарегистрируйтесь в следующей форме:</p>
+  <form method="post">
+    {{ user_form.as_p }}
+    {% csrf_token %}
+    <button type="submit">Отправить</button>
+        <a>{{ message }}</a>
+  </form>
 {% endblock %}
