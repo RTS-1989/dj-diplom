@@ -19,3 +19,11 @@ class SignupForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Пароли не совпадают')
         return cd['password2']
+
+    def save(self, commit=True, **kwargs):
+        user = super().save(commit=False)
+        user.username = self.cleaned_data['email']
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+        return user
