@@ -24,7 +24,7 @@ def product_list(request, category_slug=None):
     return render(request, template, context)
 
 
-def smartphones_list(request, category_slug=None):
+def product_categories(request, category_slug=None):
 
     cart_product_form = CartAddProductForm()
     template = 'shop/categories.html'
@@ -43,7 +43,7 @@ def smartphones_list(request, category_slug=None):
         previous_page_url = f'?{previous_page}'
 
     context = {
-        'current_category':current_category,
+        'current_category': current_category,
         'current_products': current_products,
         'cart_product_form': cart_product_form,
         'current_page': current_page,
