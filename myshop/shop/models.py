@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -70,7 +72,26 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
 
-
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Product, self).save(*args, **kwargs)
+
+
+class Review(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name='user', verbose_name='Пользователь',
+                             default=None)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE,
+                                related_name='product', verbose_name='Продукт',
+                                default=None)
+    text = models.TextField()
+    created = models.DateTimeField(default=timezone.now(), null=True)
+    moderation = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    def __str__(self):
+        return self.text

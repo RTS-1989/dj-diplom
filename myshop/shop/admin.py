@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Category, Subcategory, Product
+from .models import Category, Subcategory, Product, Review
+from .forms import UserReviewAddForm
 
 
 @admin.register(Category)
@@ -23,3 +24,9 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'available']
     prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(Review)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['user', 'product','text', 'created', 'moderation']
+    list_filter = ['user', 'created', 'moderation']
