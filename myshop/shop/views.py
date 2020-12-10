@@ -5,19 +5,13 @@ from django.core.paginator import Paginator
 from urllib.parse import urlencode
 
 
-def product_list(request, category_slug=None):
-    category = None
-    categories = Category.objects.all()
+def index(request):
+
     products = Product.objects.filter(available=True)
     template = 'shop/index.html'
 
-    if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        products = products.filter(category=category)
 
     context = {
-        'category': category,
-        'categories': categories,
         'products': products
     }
 
