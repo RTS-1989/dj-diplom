@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
-from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -77,21 +76,26 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
 
 
+class Rating(models.Model):
+    def __str__(self):
+        return ()
+
+
 class Review(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name='user', verbose_name='Пользователь',
-                             default=None)
+    name = models.CharField('Имя', max_length=100, default=None)
     product = models.ForeignKey('Product', on_delete=models.CASCADE,
-                                related_name='product', verbose_name='Продукт',
-                                default=None)
-    text = models.TextField()
-    created = models.DateTimeField(default=timezone.now(), null=True)
-    moderation = models.BooleanField(default=False)
+                                related_name='reviews',
+                                verbose_name='Продукт', default=None)
+    text = models.TextField('Сообщение', max_length=2000)
+    created = models.DateTimeField(auto_now_add=True, verbose_name='создан', null=True)
+    parent = models.ForeignKey('self', verbose_name='Родитель',
+                               on_delete=models.SET_NULL, blank=True,
+                               null=True)
 
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
 
     def __str__(self):
-        return self.text
+        return f'{self.name} - {self.product}'

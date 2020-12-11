@@ -1,11 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from shop.models import Subcategory, Product, Review
+from django.shortcuts import render, get_object_or_404, redirect
+from shop.models import Subcategory, Product
 from cart.forms import CartAddProductForm
-from .forms import UserReviewAddForm
+from .forms import ReviewForm
 from django.core.paginator import Paginator
 from urllib.parse import urlencode
-from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import get_user_model
 
 
 def index(request):
@@ -60,28 +58,12 @@ def product_detail(request, id, slug):
     return render(request, template, context)
 
 
-def review(request):
+def add_review(request, pk):
     if request.method == 'POST':
-        id = request.POST.get('id', None)
-        form = UserReviewAddForm()
-        if id:
-            try:
-                review = Review.objects.get(pk=id)
-            except ObjectDoesNotExist:
-                return ()
-            if form.is_valid():
-                form = form.save(commit=False)
-                form.user = get_user_model()
-                form.review = review
-                form.save()
-                return ()
-            return ()
-        return()
-
-    context = {'form': UserReviewAddForm(),
-               'reviews': Review.objects.all()
-               }
-
-    return render(request, 'shop/index.html', context)
-
-
+        form = ReviewForm(request.POST)
+        product = Product.objects.get(id=pk)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.product = product
+            form.save()
+        return redirect(product.get_absolute_url())
