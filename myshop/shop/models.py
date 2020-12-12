@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.text import slugify
 
 
@@ -74,11 +73,6 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Product, self).save(*args, **kwargs)
-
-
-class Rating(models.Model):
-    def __str__(self):
-        return ()
 
 
 class Review(models.Model):
